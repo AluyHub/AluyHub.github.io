@@ -1,0 +1,10 @@
+*{
+	background: #008c8c;
+	margin: 0;
+	padding: 0;
+}
+div{
+	width: 100px;
+	height: 100px;
+	background: brown;
+}
