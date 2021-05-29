@@ -7,22 +7,22 @@ body {
 	margin-left: 50%;
 	transform: translateX(-50%);
 	background: #008c8c;
-	max-width: 80%;
+	min-width: 500px;
 }
 content {
-	display: flex;
-	justify-content: center;
+
 }
 .carouselMap {
 	width: 500px;
 	height: 300px;
 	background: green;
 	overflow: hidden;
+	margin: 0 auto;
 	position: relative;
 }
 .carouselMap .imgContent {
-	height: 100%;
-	width: 2500px;
+	height: 300px;
+	width: 3000px;
 	position: absolute;
 }
 .carouselMap .imgContent img { 
