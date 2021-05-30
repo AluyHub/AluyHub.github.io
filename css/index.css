@@ -6,27 +6,79 @@
 body { 
 	margin-left: 50%;
 	transform: translateX(-50%);
-	background: #008c8c;
 	min-width: 500px;
 }
 content {
 
 }
-.carouselMap {
+.carouselBox {
 	width: 500px;
 	height: 300px;
 	background: green;
 	overflow: hidden;
 	margin: 0 auto;
 	position: relative;
+	border-radius: 5px;
 }
-.carouselMap .imgContent {
+.carouselBox .imgContent {
 	height: 300px;
-	width: 3000px;
 	position: absolute;
 }
-.carouselMap .imgContent img { 
+.carouselBox .imgContent img { 
 	height: 300px;
 	width: 500px;
 	float: left;
+}
+.leftControl, 
+.rightControl {
+	top: 50%;
+	width: 45px;
+	height: 25px;
+	line-height: 22px;
+	text-align: center;
+	position: relative;
+	font-size: 30px;
+	color: white;
+	letter-spacing: -15px;
+	display: none;
+	border-radius: 50%;
+	transition: .5s all;
+}
+.leftControl:hover, 
+.rightControl:hover {
+	background: #ccc;
+	opacity: .7;
+	text-shadow: 0 0 5px red;
+	cursor: pointer;
+}
+.leftControl {
+	float: left;
+	transform: scaleY(1.8) translateY(-40%);
+}
+.rightControl {
+	float: right;
+	transform: scaleY(1.8) translateY(-40%) rotateY(180deg);
+}
+.btnList {
+	display: flex;
+	justify-content: center;
+	position: relative;
+	top: 285px;
+}
+.btnList li {
+	width: 27px;
+	height: 5px;
+	margin: 0 5px;
+	background: white;
+	list-style: none;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+}
+.btnList li div {
+	width: 0%;
+	height: 100%;
+	background: linear-gradient(to right, red, #008c8c);
+	transition: .3s width;
+	border-radius: 5px;
 }
