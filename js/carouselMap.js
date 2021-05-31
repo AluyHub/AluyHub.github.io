@@ -1,122 +1,145 @@
 var InitChangeImg =(function () {
 	var carouselBox = document.getElementsByClassName('carouselBox')[0];
-	var imgContain = document.getElementsByClassName('imgContent')[0];
+	var imgContain = document.getElementsByClassName('imgContent')[0]; // Img slider box
 	var index = 1;
-	var btIndex = 0;
-	var btWidth = 0;
-	var speed = 10;
-	var nextLeft = 0;7
-	var timer = null;
-	var flag = true;	
-	var len = imgContain.children.length;
-	var imgWidth = parseInt(getComputedStyle(imgContain.children[0],null).width);
-	imgContain.style.left = -1 * imgWidth + 'px';
-	var current = parseInt(imgContain.style.left);
+	var timer = null; //Animation completion timer
+	var changeImg = null; //Switch picture timer
+	var key = true; // Animation lock
+	var isMoving = false; // Animation change lock
+	var btnList = document.getElementsByClassName('btnList')[0];
 	var leftBtn = document.getElementsByClassName('leftControl')[0];
 	var rightBtn = document.getElementsByClassName('rightControl')[0];
-	var btnList = document.getElementsByClassName('btnList')[0];
+	var len = imgContain.children.length; //Picture total
+	console.log(btnLen);
+	var imgWidth = parseInt(getComputedStyle(imgContain.children[0],null).width); // Width of a single picture
+
+	// Init
+	imgContain.style.width = len * imgWidth +'px';
+	imgContain.style.left = -1 * imgWidth + 'px';
+	document.onmousedown = document.oncontextmenu = function (e) { // Block default events
+		var event = e || window.event; //Event compatibility
+		event.preventDefault();
+	}
+	for(var i=0; i < len - 2; i ++) {
+		var li = document.createElement('li');
+		var liC = document.createElement('div');
+		li.appendChild(liC);
+		btnList.appendChild(li);
+
+	}
+	var btnLen = btnList.children.length; //btnList total
 	var allDiv = btnList.getElementsByTagName('div');
-	imgContain.style.width = len * imgWidth+'px';
+	// var btIndex = 0;
+	// var btWidth = 0;
+	// var speed = 10;
+	// var nextLeft = 0;7
+	// var flag = true;	
+	// var current = parseInt(imgContain.style.left);
 
-	// document.onmousedown = document.oncontextmenu = function (e) {
-	// 	var event = e || window.event;
-	// 	event.preventDefault()
-	// }
+	
 
-	// for(var i=0; i < imgContain.children.length; i ++) {
-	// 	var li = document.createElement('li');
-	// 	var liC = document.createElement('div');
-	// 	li.appendChild(liC);
-	// 	btnList.appendChild(li);
-
-	// }
-	// for(var i = 0; i < btnList.children.length; i++) {
-	// 	(function (j) {
-	// 		btnList.children[j].onmouseenter = function () {
-	// 			btnList.children[j].children[0].style.width = '100%';
-	// 		}
-	// 		btnList.children[j].onmouseleave = function () {
-	// 			btnList.children[j].children[0].style.width = 0;
-	// 		}
-	// 	}(i))
-	// }
-	function changeImg() {
-		if(index == len) {
-			index = 2;
+	function getStyle(elem, prop) {
+		if(window.getComputedStyle){
+			return window.getComputedStyle(elem,null)[prop];
+		}else{ //IE
+			return elem.currenStyle[prop];
 		}
-		// 0 -500 -1000 -1500 -2000 - 2500 -3000
-		nextLeft = -index * imgWidth;
-
-		timer = setTimeout(changeImg,3500);
-		carouselBox.onmouseenter = function () {
-			leftBtn.style.display = 'block';
-			rightBtn.style.display = 'block';
-			clearTimeout(timer);
-		}
-		carouselBox.onmouseleave = function () {
-			leftBtn.style.display = 'none';
-			rightBtn.style.display = 'none';
-			timer = setTimeout(changeImg,3500);
-		}
-		rightBtn.onclick = function () {
-			if (flag) {
-				flag = false;
-				if(index == len){
-					index = 1;
+	}
+	function animate(obj, json, callback) {
+		if(key){
+			key = false;
+			timer = setInterval(function () {
+				var isStop = true;
+				for (var attr in json) {
+					var now = parseInt(getStyle(obj, attr));
+					var speed = (json[attr]-now) / 10;
+					speed = speed>0?Math.ceil(speed):Math.floor(speed);
+					var current = now + speed;
+					obj.style[attr] = current + 'px';
+					isStop = json[attr] !== current ? false : true;
 				}
-				nextLeft = -index * imgWidth;
-				animate();
-				index++;
-			}
-		}
-		leftBtn.onclick = function () {
-			if (flag) {
-				flag = false;
-				if(index == 0){
-					index = 5;
+				if (isStop) {
+					key = true;
+					clearInterval(timer);
+					callback && callback();
 				}
-				prevLeft = current + imgWidth;
-				console.log(prevLeft)
-				move();
-				index--;;
-				console.log(index);
-			}
+			},10);
+
 		}
-		animate();
+	}
+	carouselBox.onmouseenter = function () {
+		leftBtn.style.display = 'block';
+		rightBtn.style.display = 'block';
+		clearTimeout(changeImg);
+	}
+	carouselBox.onmouseleave = function () {
+		leftBtn.style.display = 'none';
+		rightBtn.style.display = 'none';
+		changeImg = setInterval(nextImg,3500);
+	}
+	for (var i = 0; i < btnLen; i ++) {
+		btnList.children[i].index = i;
+		btnList.children[i].onclick = function () {
+			index = this.index + 1;
+			navChange();
+			animate(imgContain, {left : -index * imgWidth});
+		}
+	}
+	leftBtn.onclick = prevImg;
+	rightBtn.onclick = nextImg;
+
+	function nextImg() {
+		if(isMoving) {
+			return;
+		}
+		isMoving = true;
 		index ++;
+		navChange();
+		animate(imgContain,{
+			left : -index * imgWidth
+		}, function () {
+			if(index == len-1) {
+				imgContain.style.left = -1 * imgWidth + 'px';
+				index = 1;
+			}
+			isMoving = false;
+		});
 	}
-	function animate() {
-		if(current > nextLeft) {
-			current -= speed;
-			imgContain.style.left = current + 'px';
-			setTimeout(animate, 10)
-		}else if(current == (imgWidth*(-len+1))){
-			current = -1 * imgWidth;
-			imgContain.style.left = -1 * imgWidth + 'px';
-			flag = true;
-		}else{
-			flag = true;
+	function prevImg() {
+		if(isMoving) {
+			return;
+		}
+		index --;
+		isMoving = true;
+		navChange();
+		animate(imgContain,{
+			left : -index * imgWidth
+		}, function () {
+			if(index == 0) {
+				imgContain.style.left = -(len-2) * imgWidth + 'px';
+				index = len-2;
+			}
+			isMoving = false;
+		});
+	}
+	function navChange(){
+		for (var i = 0; i < btnLen; i++) {
+			allDiv[i].style.width = '';
+		}
+		if (index > btnLen) {
+			allDiv[0].style.width = '100%';
+			console.log('a');
+		} else if (index < 1) {
+			allDiv[4].style.width = '100%';
+			console.log('b');
+		} else {
+			allDiv[index - 1].style.width = '100%';
+			console.log('c');
 		}
 	}
-	function move(){
-		if(current < prevLeft){
-			current += speed;
-			imgContain.style.left = current + 'px';
-			setTimeout(move,10);
-		}else if(current == 0){
-			current = -index * 5 * imgWidth;
-			imgContain.style.left = current + 'px';
-			flag = true;
-		}else {
-			flag = true;
-		}
-
-	}
-
-
-
 	function init() {
-		changeImg();
+		changeImg = setInterval(nextImg, 3500);
+		allDiv[0].style.width = '100%';
 	}
 	return init;
 } ())

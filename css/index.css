@@ -74,6 +74,7 @@ content {
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
+	border-radius: 5px;
 }
 .btnList li div {
 	width: 0%;
