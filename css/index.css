@@ -37,7 +37,7 @@ content {
 	position: relative;
 	font-size: 2em;
 	color: white;
-	letter-spacing: -15px;
+	letter-spacing: -0.45em;
 	display: none;
 	border-radius: 50%;
 	transition: .5s all;

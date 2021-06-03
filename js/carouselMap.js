@@ -15,7 +15,7 @@ var InitChangeImg =(function () {
 	// Init
 	imgContain.style.width = len * imgWidth +'px';
 	imgContain.style.left = -1 * imgWidth + 'px';
-	document.onmousedown =	document.oncontextmenu = function (e) { // Block default events
+	document.onmousedown = document.ondblclick = document.oncontextmenu = function (e) { // Block default events
 		var event = e || window.event; //Event compatibility
 		event.preventDefault();
 	}
