@@ -10,15 +10,17 @@ var InitChangeImg =(function () {
 	var leftBtn = document.getElementsByClassName('leftControl')[0];
 	var rightBtn = document.getElementsByClassName('rightControl')[0];
 	var len = imgContain.children.length; //Picture total
-	console.log(btnLen);
 	var imgWidth = parseInt(getComputedStyle(imgContain.children[0],null).width); // Width of a single picture
 
 	// Init
 	imgContain.style.width = len * imgWidth +'px';
 	imgContain.style.left = -1 * imgWidth + 'px';
-	document.onmousedown = document.oncontextmenu = function (e) { // Block default events
+	document.onmousedown =	document.oncontextmenu = function (e) { // Block default events
 		var event = e || window.event; //Event compatibility
 		event.preventDefault();
+	}
+	window.ontouchstart = function (e) {
+		e.preventDefault();
 	}
 	for(var i=0; i < len - 2; i ++) {
 		var li = document.createElement('li');
@@ -29,12 +31,6 @@ var InitChangeImg =(function () {
 	}
 	var btnLen = btnList.children.length; //btnList total
 	var allDiv = btnList.getElementsByTagName('div');
-	// var btIndex = 0;
-	// var btWidth = 0;
-	// var speed = 10;
-	// var nextLeft = 0;7
-	// var flag = true;	
-	// var current = parseInt(imgContain.style.left);
 
 	
 
@@ -128,13 +124,10 @@ var InitChangeImg =(function () {
 		}
 		if (index > btnLen) {
 			allDiv[0].style.width = '100%';
-			console.log('a');
 		} else if (index < 1) {
 			allDiv[4].style.width = '100%';
-			console.log('b');
 		} else {
 			allDiv[index - 1].style.width = '100%';
-			console.log('c');
 		}
 	}
 	function init() {
