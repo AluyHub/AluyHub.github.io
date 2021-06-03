@@ -19,9 +19,9 @@ var InitChangeImg =(function () {
 		var event = e || window.event; //Event compatibility
 		event.preventDefault();
 	}
-	window.ontouchstart = function (e) {
-		e.preventDefault();
-	}
+	// window.ontouchstart = function (e) {
+	// 	e.preventDefault();
+	// }
 	for(var i=0; i < len - 2; i ++) {
 		var li = document.createElement('li');
 		var liC = document.createElement('div');
