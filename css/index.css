@@ -56,17 +56,15 @@ content {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	z-index: 1;
 }
 .bouthBtn div {
 	width: 45px;
 	height: 45px;
 	border-radius: 50%;
-	position: relative;
 	margin: 5px;
 	transition: .3s all;
 	color: white;
-	line-height: 37px;
+	line-height: 1.5em;
 	font-size: 25px;
 	letter-spacing: -0.27em;
 
