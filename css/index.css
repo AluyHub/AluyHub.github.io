@@ -26,7 +26,7 @@ content {
 	width: 500px;
 	float: left;
 }
-.leftControl, 
+/*.leftControl, 
 .rightControl {
 	top: 50%;
 	width: 45px;
@@ -41,13 +41,7 @@ content {
 	border-radius: 50%;
 	transition: .5s all;
 }
-.leftControl:hover, 
-.rightControl:hover {
-	background: #ccc;
-	opacity: .7;
-	text-shadow: 0 0 5px red;
-	cursor: pointer;
-}
+
 .leftControl {
 	float: left;
 	transform: scaleY(1.8) translateY(-40%);
@@ -55,6 +49,37 @@ content {
 .rightControl {
 	float: right;
 	transform: scaleY(1.8) translateY(-40%) rotateY(180deg);
+}*/
+
+.bouthBtn {
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	z-index: 1;
+}
+.bouthBtn div {
+	width: 45px;
+	height: 45px;
+	border-radius: 50%;
+	position: relative;
+	margin: 5px;
+	transition: .3s all;
+	color: white;
+	line-height: 37px;
+	font-size: 25px;
+	letter-spacing: -0.27em;
+
+}
+.bouthBtn div>div {
+	transform: scaleY(1.8);
+}
+.bouthBtn div.leftControl:hover, 
+.bouthBtn div.rightControl:hover {
+	background: white;
+	opacity: .6;
+	text-shadow: 0 0 5px red;
+	cursor: pointer;
 }
 .btnList {
 	display: flex;

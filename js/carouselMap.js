@@ -60,16 +60,16 @@ var InitChangeImg =(function () {
 
 		}
 	}
-	carouselBox.onmouseenter = function () {
-		leftBtn.style.display = 'block';
-		rightBtn.style.display = 'block';
-		clearTimeout(changeImg);
-	}
-	carouselBox.onmouseleave = function () {
-		leftBtn.style.display = 'none';
-		rightBtn.style.display = 'none';
-		changeImg = setInterval(nextImg,3500);
-	}
+	// carouselBox.onmouseenter = function () {
+	// 	leftBtn.style.display = 'block';
+	// 	rightBtn.style.display = 'block';
+	// 	clearTimeout(changeImg);
+	// }
+	// carouselBox.onmouseleave = function () {
+	// 	leftBtn.style.display = 'none';
+	// 	rightBtn.style.display = 'none';
+	// 	changeImg = setInterval(nextImg,3500);
+	// }
 	for (var i = 0; i < btnLen; i ++) {
 		btnList.children[i].index = i;
 		btnList.children[i].onclick = function () {
