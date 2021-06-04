@@ -83,7 +83,7 @@ content {
 	display: flex;
 	justify-content: center;
 	position: relative;
-	top: 285px;
+	top: -18px;
 }
 .btnList li {
 	width: 27px;
